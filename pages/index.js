@@ -26,8 +26,8 @@ function renderSpinner() {
 }
 
 export default function Home({allPostsData}) {
-  const planetResult = getPlanet(2) 
-  console.log(planetResult)
+  // const planetResult = getPlanet(2) 
+  // console.log(planetResult)
 
 
   // if (error) return <div>failed to load</div>
@@ -39,9 +39,9 @@ export default function Home({allPostsData}) {
       </Head>
       <section className={utilStyles.headingMd}>
         <p>Hi, I'm Nicolas Rotias dominas !</p>
-        <p>et je viens de la planète</p>
-        {planetResult.isLoading && renderSpinner()}
-        {planetResult.planet && (<div>{planetResult.planet.name}</div>)} 
+        <p>et je viens de la planète Terre</p>
+        {/* {planetResult.isLoading && renderSpinner()}
+        {planetResult.planet && (<div>{planetResult.planet.name}</div>)}  */}
         <p>
           (This is a sample website - you’ll be building a site like this on{' '}
           <a href="https://nextjs.org/learn">our Next.js tutorial</a>.)
