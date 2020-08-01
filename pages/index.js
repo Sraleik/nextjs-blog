@@ -18,7 +18,7 @@ const siteTitle = 'Nicolas Rotier CV'
 
 export default function Home(props) {
   return (
-      <div>
+    <div>
       <Head>
         <title>{siteTitle}</title>
         <link rel="icon" href="/favicon.ico" />
@@ -32,9 +32,18 @@ export default function Home(props) {
       <header>
       </header>
       <main>
-        <h1>test</h1>
+        <h1>{props.data}</h1>
       </main>
     </div>
   )
+}
+
+export async function getServerSideProps() {
+  // Fetch data from external API
+  // const res = await fetch(`https://.../data`)
+  // const data = await res.json()
+
+  // Pass data to the page via props
+  return { props: { data: 'et ouai mémé !!'} }
 }
 
