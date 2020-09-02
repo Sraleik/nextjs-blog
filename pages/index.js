@@ -1,79 +1,49 @@
 import Head from 'next/head'
-import Link from 'next/link'
-import Layout, { siteTitle } from '../components/layout'
-import Button from '../components/button'
-import utilStyles from '../styles/utils.module.css'
-import { getSortedPostsData } from '../lib/posts'
-import ClipLoader from "react-spinners/ClipLoader";
-import useSWR from 'swr'
-const fetcher = (...args) => fetch(...args).then(res => res.json())
+import TextButton from '../components/text-button'
+// import ClipLoader from "react-spinners/ClipLoader";
 
-function getPlanet(id) {
-  const { data, error } = useSWR(`http://swapi.dev/api/planets/${id}`, fetcher)
-  return {
-    planet: data,
-    isLoading: !error && !data,
-    isError: error
-  }
-}
+// import useSWR from 'swr'
+// const fetcher = (...args) => fetch(...args).then(res => res.json())
 
-function renderSpinner() {
-  return <ClipLoader
-    size={20}
-    color={"#123abc"}
-    loading={true}
-  />
-}
+// function getPlanet(id) {
+//   const { data, error } = useSWR(`http://swapi.dev/api/planets/${id}`, fetcher)
+//   return {
+//     planet: data,
+//     isLoading: !error && !data,
+//     isError: error
+//   }
+// }
 
-export default function Home({allPostsData}) {
-  const planetResult = getPlanet(2) 
-  console.log(planetResult)
+const siteTitle = 'Nicolas Rotier CV'
 
-
-  // if (error) return <div>failed to load</div>
-  // if (!data) return <div>loading...</div>
+export default function Home(props) {
   return (
-    <Layout home>
+    <div>
       <Head>
         <title>{siteTitle}</title>
+        <link rel="icon" href="/favicon.ico" />
+        <meta
+          name="description"
+          content="Learn how to build a personal website using Next.js"
+        />
+        <meta name="og:title" content={siteTitle} />
+        <meta name="twitter:card" content="summary_large_image" />
       </Head>
-      <section className={utilStyles.headingMd}>
-        <p>Hi, I'm Nicolas Rotias dominas !</p>
-        <p>et je viens de la planète</p>
-        {planetResult.isLoading && renderSpinner()}
-        {planetResult.planet && (<div>{planetResult.planet.name}</div>)} 
-        <p>
-          (This is a sample website - you’ll be building a site like this on{' '}
-          <a href="https://nextjs.org/learn">our Next.js tutorial</a>.)
-        </p>
-      </section>
-      <section>
-        <Button>Envoyer</Button>
-        <h2 className={utilStyles.headingLg}>Blog</h2>
-        <ul className={utilStyles.list}>
-          {allPostsData.map(({id, date, title}) => (
-            <li className={utilStyles.listItem} key={id}>
-              {title}
-              <br/>
-              <Link href="/posts/[id]" as={`/posts/${id}`}>
-                <a>{id}</a>
-              </Link>
-              <br/>
-              {date}
-            </li>
-          ))}
-        </ul>
-      </section>
-    </Layout>
+      <header>
+      </header>
+      <main>
+        <h1>{props.data}</h1>
+      </main>
+    </div>
   )
 }
 
-export async function getStaticProps() {
-  const allPostsData = getSortedPostsData()
-  console.log(allPostsData)
-  return {
-    props: {
-      allPostsData
-    }
-  }
+export async function getServerSideProps() {
+  // Fetch data from external API
+  // const res = await fetch(`https://.../data`)
+  // const data = await res.json()
+
+  // Pass data to the page via props
+  return { props: { data: 'et ouai mémé !!'} }
 }
+
